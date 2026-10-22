@@ -8,6 +8,7 @@ mvn clean test
 mvn test -Dcucumber.filter.tags="@practice_form"
 mvn test -Dbrowser=firefox -Dheadless=true
 mvn test "-Dcucumber.filter.tags=@bug_conhecido"
+mvn test "-Dcucumber.filter.tags=@browser_windows"
 ```
 Relatório: `target/cucumber-reports/report.html`
 

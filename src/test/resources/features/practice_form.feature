@@ -6,6 +6,7 @@ Funcionalidade: Formulário de cadastro de estudante (Practice Form)
     Dado que acesso o site DemoQA
     E escolho a opção "Forms" na página inicial
     E clico no submenu "Practice Form"
+    E a página Practice Form deve estar carregada
     Quando preencho todo o formulário com valores aleatórios
     E faço upload do arquivo "arquivo-upload.txt"
     E submeto o formulário

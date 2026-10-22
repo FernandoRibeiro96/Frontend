@@ -42,19 +42,23 @@ public class PracticeFormSteps {
         return new PracticeFormPage(context.getDriver());
     }
 
-    @Dado("que acesso o site DemoQA")
-    public void queAcessoOSiteDemoQA() {
-        home().open(ConfigReader.get("base.url"));
-    }
-
-    @E("escolho a opção {string} na página inicial")
-    public void escolhoAOpcaoNaPaginaInicial(String opcao) {
-        home().selectCard(opcao);
-    }
-
-    @E("clico no submenu {string}")
-    public void clicoNoSubmenu(String submenu) {
-        sideMenu().openSubmenu(submenu);
+//    @Dado("que acesso o site DemoQA")
+//    public void queAcessoOSiteDemoQA() {
+//        home().open(ConfigReader.get("base.url"));
+//    }
+//
+//    @E("escolho a opção {string} na página inicial")
+//    public void escolhoAOpcaoNaPaginaInicial(String opcao) {
+//        home().selectCard(opcao);
+//    }
+//
+//    @E("clico no submenu {string}")
+//    public void clicoNoSubmenu(String submenu) {
+//        sideMenu().openSubmenu(submenu);
+//        assertTrue(form().isLoaded(), "A página Practice Form não foi carregada");
+//    }
+    @E("a página Practice Form deve estar carregada")
+    public void aPaginaPracticeFormDeveEstarCarregada() {
         assertTrue(form().isLoaded(), "A página Practice Form não foi carregada");
     }
 
