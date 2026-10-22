@@ -14,6 +14,7 @@ mvn test "-Dcucumber.filter.tags=@web_tables and not @bonus"
 mvn test "-Dcucumber.filter.tags=@bonus"
 mvn test "-Dcucumber.filter.tags=@web_tables_bug"
 mvn test "-Dcucumber.filter.tags=@progress_bar"
+mvn test "-Dcucumber.filter.tags=@sortable"
 ```
 Relatório: `target/cucumber-reports/report.html`
 
