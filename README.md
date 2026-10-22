@@ -9,6 +9,11 @@ mvn test -Dcucumber.filter.tags="@practice_form"
 mvn test -Dbrowser=firefox -Dheadless=true
 mvn test "-Dcucumber.filter.tags=@bug_conhecido"
 mvn test "-Dcucumber.filter.tags=@browser_windows"
+mvn test "-Dcucumber.filter.tags=@web_tables"
+mvn test "-Dcucumber.filter.tags=@web_tables and not @bonus"
+mvn test "-Dcucumber.filter.tags=@bonus"
+mvn test "-Dcucumber.filter.tags=@web_tables_bug"
+mvn test "-Dcucumber.filter.tags=@progress_bar"
 ```
 Relatório: `target/cucumber-reports/report.html`
 
@@ -57,3 +62,20 @@ Resultado atual: permanecem apenas os 3 registros iniciais; a@x.com e c@x.com fo
 
 Severidade: alta (perda de dados além do registro deletado)
 Workaround: deletar sem usar a busca
+
+###############################################################
+
+Título: Deletar um registro criado apaga todos os demais registros criados
+
+Ambiente: Windows 11, Chrome 155, https://demoqa.com/webtables
+
+Passos:
+1. Criar 3 registros (a@x.com, b@x.com, c@x.com)
+2. Clicar na lixeira da linha b@x.com (com ou sem texto na busca)
+
+Resultado esperado: permanecem os 3 iniciais + a@x.com e c@x.com
+Resultado atual: permanecem apenas os 3 registros iniciais; a@x.com e c@x.com foram removidos
+
+Severidade: alta (perda de dados além do registro deletado)
+Workaround: nenhum identificado
+Cobertura automatizada: cenário @web_tables_bug
