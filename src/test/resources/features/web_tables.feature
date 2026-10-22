@@ -28,3 +28,12 @@ Funcionalidade: Tabela dinâmica (Web Tables)
     Quando deleto todos os novos registros criados
     Então nenhum dos novos registros deve existir na tabela
     E os registros iniciais devem permanecer na tabela
+
+  # Bug do site: deletar um registro apaga todos os demais registros criados.
+  # Fora da execução padrão (cucumber.filter.tags=not @bug_conhecido). Rodar com -Dcucumber.filter.tags=@web_tables_bug
+  @bug_conhecido @web_tables_bug
+  Cenário: Deletar um registro não deve apagar os demais registros criados
+    Quando crio 3 novos registros com valores aleatórios
+    E deleto apenas o primeiro registro criado
+    Então o registro deletado não deve mais existir na tabela
+    E os demais registros criados devem continuar na tabela

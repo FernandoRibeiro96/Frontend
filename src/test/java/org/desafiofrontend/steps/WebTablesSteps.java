@@ -22,6 +22,7 @@ public class WebTablesSteps {
 
     private final TestContext context;
     private final WebTableState state;
+    private WebTableRecord deletedRecord;
 
     public WebTablesSteps(TestContext context, WebTableState state) {
         this.context = context;
@@ -97,9 +98,14 @@ public class WebTablesSteps {
 
     @Quando("deleto todos os novos registros criados")
     public void deletoTodosOsNovosRegistrosCriados() {
+        // O DemoQA apaga TODOS os registros criados ao deletar qualquer um deles (bug documentado no README).
+        // Por isso só clicamos na lixeira dos que ainda existem e conferimos o resultado final na tabela.
         for (WebTableRecord record : state.getCreated()) {
-            page().deleteRecord(record.email());
-            state.remove(record);
+            if (page().recordExists(record.email())) {
+                page().deleteRecord(record.email());
+            } else {
+                System.out.println("[WebTables] já removido pelo site (bug conhecido): " + record.email());
+            }
         }
     }
 
@@ -111,7 +117,32 @@ public class WebTablesSteps {
 
     @Então("nenhum dos novos registros deve existir na tabela")
     public void nenhumDosNovosRegistrosDeveExistirNaTabela() {
-        assertTrue(state.getCreated().isEmpty(), "Ainda há registros criados que não foram deletados");
+        for (WebTableRecord record : state.getCreated()) {
+            assertTrue(page().waitRecordAbsent(record.email()),
+                    "O registro ainda existe na tabela: " + record.email());
+        }
+    }
+
+    // ---------- Bug conhecido: deletar um registro não deveria afetar os demais ----------
+    @Quando("deleto apenas o primeiro registro criado")
+    public void deletoApenasOPrimeiroRegistroCriado() {
+        deletedRecord = state.getCreated().get(0);
+        page().deleteRecord(deletedRecord.email());
+        state.remove(deletedRecord);
+    }
+
+    @Então("o registro deletado não deve mais existir na tabela")
+    public void oRegistroDeletadoNaoDeveMaisExistirNaTabela() {
+        assertTrue(page().waitRecordAbsent(deletedRecord.email()),
+                "O registro deletado ainda existe na tabela: " + deletedRecord.email());
+    }
+
+    @E("os demais registros criados devem continuar na tabela")
+    public void osDemaisRegistrosCriadosDevemContinuarNaTabela() {
+        for (WebTableRecord record : state.getCreated()) {
+            assertTrue(page().recordExists(record.email()),
+                    "Registro removido indevidamente pelo site: " + record.email());
+        }
     }
 
     @E("os registros iniciais devem permanecer na tabela")
