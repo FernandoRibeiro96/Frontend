@@ -39,3 +39,21 @@ Botão X (canto superior direito): [testar e preencher]
 Frequência: [sempre / intermitente]
 Severidade: baixa (há formas alternativas de fechar), mas é uma falha de usabilidade
 Evidências: print/vídeo + erros de console (F12), se houver
+
+##############################################################
+
+Título: Deletar um registro com texto na busca ativo apaga os demais registros criados
+
+Ambiente: Windows 11, Chrome 155, https://demoqa.com/webtables
+
+Passos:
+1. Criar 3 registros (a@x.com, b@x.com, c@x.com)
+2. Digitar "b@x.com" no campo de busca
+3. Clicar no ícone de lixeira da linha exibida
+4. Apagar o texto da busca
+
+Resultado esperado: permanecem os 3 iniciais + a@x.com e c@x.com
+Resultado atual: permanecem apenas os 3 registros iniciais; a@x.com e c@x.com foram removidos
+
+Severidade: alta (perda de dados além do registro deletado)
+Workaround: deletar sem usar a busca
